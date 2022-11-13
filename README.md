@@ -6,7 +6,9 @@ Shell scripts for managing a second brain
 
 ### Import markdown notes from Android
 
-Pull all markdown files from a specific folder on your Android device. For each file we create a new file or append to existing file in the destination folder. Lastly delete the remote markdown files, but keep any other file types.
+Pulls all markdown files `*.md` from a specific folder on a Android device and then merges these files into a destination folder. After merging, the remote markdown files are deleted.
+
+I use this script to pull daily notes from my Obsidian.md vault on my Android phone and merge them into my logseq journals folder.
 
 ```bash
 # Usage
