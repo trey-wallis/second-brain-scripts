@@ -19,12 +19,13 @@ mkdir -p "$tmp"
 # Pull files from remote
 result="$(adb pull $remote/ $tmp)"
 
+# If there was an error while pulling, then exit
 if [[ $result == *"error:"* ]]; then
     echo $result >&2
     exit 1
 fi
 
-# If the pull result was successful
+# If the pull was successful
 if [[ $result == *"0 skipped"* ]]; then
     num_files="$(find $tmp -name '*.md' | wc -l)"
     
@@ -33,13 +34,14 @@ if [[ $result == *"0 skipped"* ]]; then
         exit 1
     fi
     
+    # Iterate over all the markdown files
     for file in $tmp/$vault_name/*.md; do
         filename="$(basename $file)"
         file_data=`cat $file`
         
         output_file="$dest/$filename"
         
-        # If file exists, append data to it, otherwise write to a new file
+        # If a file exists, append data to it, otherwise write to a new file
         if [ -f "$output_file" ]; then
             echo "Updating: $filename"
             echo "$file_data" >> "$output_file"
